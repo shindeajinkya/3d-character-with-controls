@@ -17,7 +17,7 @@ const gltfLoader = new GLTFLoader();
 const textureLoader = new THREE.TextureLoader();
 
 // Canvas
-const canvas = document.querySelector("canvas.webgl");
+const canvas = document.querySelector<HTMLElement>("canvas.webgl");
 const infoButton1 = document.querySelector<HTMLElement>("#info-button-1");
 if (!canvas) throw new Error("canvas not found");
 
@@ -66,7 +66,7 @@ gltfLoader.load("/Fox/glTF/Fox.gltf", (gltf) => {
   gltf.scene.scale.set(0.025, 0.025, 0.025);
   scene.add(gltf.scene);
   foxModel = gltf.scene;
-  foxModel.traverse((child) => {
+  foxModel.traverse((child: any) => {
     if (child.isMesh && child.material.isMeshStandardMaterial) {
       child.castShadow = true;
       // child.receiveShadow = true;
@@ -225,7 +225,7 @@ function animate() {
       foxModel.position.x += movingOnX;
       camera.position.x += movingOnX;
     }
-    camera.lookAt(foxModel);
+    camera.lookAt(foxModel as any);
     controls.target = foxModel.position;
   }
 
