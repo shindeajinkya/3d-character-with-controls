@@ -19,6 +19,7 @@ const textureLoader = new THREE.TextureLoader();
 // Canvas
 const canvas = document.querySelector<HTMLElement>("canvas.webgl");
 const infoButton1 = document.querySelector<HTMLElement>("#info-button-1");
+const controlButtons = document.querySelectorAll(".control-button");
 if (!canvas) throw new Error("canvas not found");
 
 /**
@@ -184,6 +185,19 @@ document.addEventListener("keyup", (event) => {
     ? arrowKeysToWASDMap[event.key]
     : event.key.toLowerCase();
   stopWalking(key);
+});
+
+// Handling button controls for mobile
+controlButtons.forEach((button) => {
+  button.addEventListener("touchstart", (event) => {
+    const id = (event.target as HTMLElement).id;
+    startWalking(id);
+  });
+
+  button.addEventListener("touchend", (event) => {
+    const id = (event.target as HTMLElement).id;
+    stopWalking(id);
+  });
 });
 
 // Handling animations
